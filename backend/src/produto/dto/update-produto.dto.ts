@@ -9,7 +9,8 @@ export class UpdateProdutoDto {
   nome?: string;
 
   @IsOptional()
-  categoria?: string;
+  @IsNumber()
+  categoriaId?: number;
 
   @IsOptional()
   @IsNumber()

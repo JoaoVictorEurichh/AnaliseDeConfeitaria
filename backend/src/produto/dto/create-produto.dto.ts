@@ -8,8 +8,8 @@ export class CreateProdutoDto {
   @IsNotEmpty()
   nome!: string;
 
-  @IsNotEmpty()
-  categoria!: string;
+  @IsNumber()
+  categoriaId!: number;
 
   @IsNumber()
   @Min(0.01)

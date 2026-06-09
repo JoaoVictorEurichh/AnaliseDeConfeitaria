@@ -1,18 +1,13 @@
 import {
-  IsEmail,
   IsOptional,
   IsString,
 } from 'class-validator';
 
-export class UpdateClienteDto {
+export class UpdateFuncionarioDto {
   @IsOptional()
   nome?: string;
 
   @IsOptional()
-  @IsEmail()
-  email?: string;
-
-  @IsOptional()
   @IsString()
-  telefone?: string;
+  cargo?: string;
 }

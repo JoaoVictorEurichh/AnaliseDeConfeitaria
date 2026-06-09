@@ -1,18 +1,14 @@
 import {
-  IsEmail,
   IsNotEmpty,
   IsOptional,
   IsString,
 } from 'class-validator';
 
-export class CreateClienteDto {
+export class CreateFuncionarioDto {
   @IsNotEmpty()
   nome!: string;
 
-  @IsEmail()
-  email!: string;
-
   @IsOptional()
   @IsString()
-  telefone?: string;
+  cargo?: string;
 }

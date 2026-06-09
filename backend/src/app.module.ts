@@ -3,11 +3,13 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { ClienteModule } from './cliente/cliente.module';
 import { ProdutoModule } from './produto/produto.module';
-import { PedidoModule } from './pedido/pedido.module';
 import { DashboardModule } from './dashboard/dashboard.module';
+import { CategoriaModule } from './categoria/categoria.module';
+import { FuncionarioModule } from './funcionario/funcionario.module';
+import { VendaModule } from './venda/venda.module';
 
 @Module({
-  imports: [ClienteModule, ProdutoModule, PedidoModule, DashboardModule],
+  imports: [ClienteModule, ProdutoModule, DashboardModule, CategoriaModule, FuncionarioModule, VendaModule],
   controllers: [AppController],
   providers: [AppService],
 })
