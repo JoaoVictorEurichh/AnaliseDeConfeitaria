@@ -3,6 +3,7 @@ import {
   Get,
   Post,
   Put,
+  Patch,
   Delete,
   Param,
   Body,
@@ -29,10 +30,16 @@ export class ProdutoController {
   }
 
   @Post()
-  create(
-    @Body() createProdutoDto: CreateProdutoDto,
-  ) {
+  create(@Body() createProdutoDto: CreateProdutoDto) {
     return this.produtoService.create(createProdutoDto);
+  }
+
+  @Patch(':id/estoque')
+  adicionarEstoque(
+    @Param('id') id: string,
+    @Body('quantidade') quantidade: number,
+  ) {
+    return this.produtoService.adicionarEstoque(+id, +quantidade);
   }
 
   @Put(':id')
@@ -40,10 +47,7 @@ export class ProdutoController {
     @Param('id') id: string,
     @Body() updateProdutoDto: UpdateProdutoDto,
   ) {
-    return this.produtoService.update(
-      +id,
-      updateProdutoDto,
-    );
+    return this.produtoService.update(+id, updateProdutoDto);
   }
 
   @Delete(':id')

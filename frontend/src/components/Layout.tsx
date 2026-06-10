@@ -8,6 +8,8 @@ const links = [
   { to: '/produtos', label: 'Produtos' },
   { to: '/funcionarios', label: 'Funcionários' },
   { to: '/vendas', label: 'Vendas' },
+  { to: '/analise', label: 'Análise de Dados' },
+  { to: '/decisao-estrategica', label: 'Decisão Estratégica' },
 ];
 
 export function Layout() {

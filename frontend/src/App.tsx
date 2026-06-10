@@ -6,6 +6,8 @@ import { ProdutosPage } from './pages/ProdutosPage';
 import { VendasPage } from './pages/VendasPage';
 import { FuncionariosPage } from './pages/FuncionariosPage';
 import { CategoriasPage } from './pages/CategoriasPage';
+import { AnalisePage } from './pages/AnalisePage';
+import { DecisaoEstrategicaPage } from './pages/DecisaoEstrategicaPage';
 
 export default function App() {
   return (
@@ -18,6 +20,8 @@ export default function App() {
           <Route path="/produtos" element={<ProdutosPage />} />
           <Route path="/funcionarios" element={<FuncionariosPage />} />
           <Route path="/vendas" element={<VendasPage />} />
+          <Route path="/analise" element={<AnalisePage />} />
+          <Route path="/decisao-estrategica" element={<DecisaoEstrategicaPage />} />
         </Route>
       </Routes>
     </BrowserRouter>

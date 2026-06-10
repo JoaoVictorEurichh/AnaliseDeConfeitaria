@@ -7,9 +7,10 @@ import { DashboardModule } from './dashboard/dashboard.module';
 import { CategoriaModule } from './categoria/categoria.module';
 import { FuncionarioModule } from './funcionario/funcionario.module';
 import { VendaModule } from './venda/venda.module';
+import { AnaliseModule } from './analise/analise.module';
 
 @Module({
-  imports: [ClienteModule, ProdutoModule, DashboardModule, CategoriaModule, FuncionarioModule, VendaModule],
+  imports: [ClienteModule, ProdutoModule, DashboardModule, CategoriaModule, FuncionarioModule, VendaModule, AnaliseModule],
   controllers: [AppController],
   providers: [AppService],
 })

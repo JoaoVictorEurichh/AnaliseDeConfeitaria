@@ -9,6 +9,9 @@ export function criarCliente(dados: {
   nome: string;
   email: string;
   telefone?: string;
+  cidade?: string;
+  estado?: string;
+  pais?: string;
 }) {
   return apiPost<Cliente>('/clientes', dados);
 }

@@ -15,4 +15,16 @@ export class UpdateClienteDto {
   @IsOptional()
   @IsString()
   telefone?: string;
+
+  @IsOptional()
+  @IsString()
+  cidade?: string;
+
+  @IsOptional()
+  @IsString()
+  estado?: string;
+
+  @IsOptional()
+  @IsString()
+  pais?: string;
 }

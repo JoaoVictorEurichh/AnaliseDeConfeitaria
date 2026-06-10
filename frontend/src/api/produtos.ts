@@ -1,4 +1,4 @@
-import { apiGet, apiPost } from './client';
+import { apiGet, apiPost, apiPatch } from './client';
 import type { Produto } from '../types/produto';
 
 export function listarProdutos() {
@@ -12,4 +12,8 @@ export function criarProduto(dados: {
   categoriaId: number;
 }) {
   return apiPost<Produto>('/produtos', dados);
+}
+
+export function adicionarEstoque(id: number, quantidade: number) {
+  return apiPatch<Produto>(`/produtos/${id}/estoque`, { quantidade });
 }

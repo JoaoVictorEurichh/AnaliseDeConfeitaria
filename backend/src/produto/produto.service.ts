@@ -1,6 +1,5 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, BadRequestException } from '@nestjs/common';
 import { PrismaService } from '../prisma/prisma.service';
-
 import { CreateProdutoDto } from './dto/create-produto.dto';
 import { UpdateProdutoDto } from './dto/update-produto.dto';
 
@@ -21,19 +20,35 @@ export class ProdutoService {
   }
 
   async create(data: CreateProdutoDto) {
-    return this.prisma.produto.create({
-      data,
+    const existente = await this.prisma.produto.findFirst({
+      where: { nome: data.nome },
+    });
+    if (existente) {
+      throw new BadRequestException(`Já existe um produto com o nome "${data.nome}".`);
+    }
+    return this.prisma.produto.create({ data });
+  }
+
+  async adicionarEstoque(id: number, quantidade: number) {
+    if (quantidade <= 0) {
+      throw new BadRequestException('A quantidade deve ser maior que zero.');
+    }
+    return this.prisma.produto.update({
+      where: { id },
+      data: { estoque: { increment: quantidade } },
     });
   }
 
-  async update(
-    id: number,
-    data: UpdateProdutoDto,
-  ) {
-    return this.prisma.produto.update({
-      where: { id },
-      data,
-    });
+  async update(id: number, data: UpdateProdutoDto) {
+    if (data.nome) {
+      const existente = await this.prisma.produto.findFirst({
+        where: { nome: data.nome, NOT: { id } },
+      });
+      if (existente) {
+        throw new BadRequestException(`Já existe um produto com o nome "${data.nome}".`);
+      }
+    }
+    return this.prisma.produto.update({ where: { id }, data });
   }
 
   async remove(id: number) {
