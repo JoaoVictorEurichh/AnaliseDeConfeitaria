@@ -2,6 +2,15 @@
 
 Projeto desenvolvido para o Desafio Integrador — 5° Período, Engenharia de Software, Centro Universitário Campo Real.
 
+## Participantes
+
+| Responsabilidade | GitHub |
+|---|---|
+| IA e Análise de Dados | [@JoaoVictorEurichh](https://github.com/JoaoVictorEurichh) |
+| Backend | [@Allanclms](https://github.com/Allanclms) |
+| Banco de Dados | [@rogerfelipe10](https://github.com/rogerfelipe10) |
+| Frontend | [@emanuelstefaness](https://github.com/emanuelstefaness) |
+
 ## Visão Geral
 
 Sistema web para análise de dados de uma confeitaria fictícia. Permite o cadastro de clientes, produtos, categorias, funcionários e vendas, além de gerar relatórios gerenciais e análises preditivas de churn utilizando Inteligência Artificial.
@@ -51,7 +60,7 @@ npm run dev
 ### Serviço de IA (Python)
 
 ```bash
-cd python-service
+cd ai
 pip install -r requirements.txt
 python -m uvicorn main:app --reload --port 8000
 ```
