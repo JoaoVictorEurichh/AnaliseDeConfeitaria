@@ -19,6 +19,12 @@ export interface VendaPorCidade {
   totalVendas: number;
 }
 
+export interface VendaPorEstado {
+  estado: string;
+  faturamento: number;
+  totalVendas: number;
+}
+
 export interface RelatorioGerencial {
   faturamentoTotal: number;
   totalVendas: number;
@@ -40,6 +46,10 @@ export function buscarVendasPorCategoria() {
 
 export function buscarVendasPorCidade() {
   return apiGet<VendaPorCidade[]>('/analise/vendas-por-cidade');
+}
+
+export function buscarVendasPorEstado() {
+  return apiGet<VendaPorEstado[]>('/analise/vendas-por-estado');
 }
 
 export function buscarRelatorioGerencial() {

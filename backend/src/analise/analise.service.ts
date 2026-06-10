@@ -95,6 +95,30 @@ export class AnaliseService {
     );
   }
 
+  async getVendasPorEstado() {
+    const vendas = await this.prisma.venda.findMany({
+      include: { cliente: true },
+    });
+
+    const agrupado: Record<
+      string,
+      { estado: string; faturamento: number; totalVendas: number }
+    > = {};
+
+    for (const venda of vendas) {
+      const estado = venda.cliente.estado ?? 'Não informado';
+      if (!agrupado[estado]) {
+        agrupado[estado] = { estado, faturamento: 0, totalVendas: 0 };
+      }
+      agrupado[estado].faturamento += venda.valorTotal;
+      agrupado[estado].totalVendas += 1;
+    }
+
+    return Object.values(agrupado).sort(
+      (a, b) => b.faturamento - a.faturamento,
+    );
+  }
+
   async getRelatorioGerencial() {
     const [vendas, itens, clientes, produtos] = await Promise.all([
       this.prisma.venda.findMany({ include: { cliente: true, itens: true } }),

@@ -16,12 +16,14 @@ import {
   buscarVendasPorProduto,
   buscarVendasPorCategoria,
   buscarVendasPorCidade,
+  buscarVendasPorEstado,
   buscarRelatorioGerencial,
 } from '../api/analise';
 import type {
   VendaPorProduto,
   VendaPorCategoria,
   VendaPorCidade,
+  VendaPorEstado,
   RelatorioGerencial,
 } from '../api/analise';
 
@@ -37,7 +39,8 @@ function formatarMoeda(valor: number) {
 export function AnalisePage() {
   const [porProduto, setPorProduto] = useState<VendaPorProduto[]>([]);
   const [porCategoria, setPorCategoria] = useState<VendaPorCategoria[]>([]);
-  const [porCidade, setPorEndereco] = useState<VendaPorCidade[]>([]);
+  const [porCidade, setPorCidade] = useState<VendaPorCidade[]>([]);
+  const [porEstado, setPorEstado] = useState<VendaPorEstado[]>([]);
   const [relatorio, setRelatorio] = useState<RelatorioGerencial | null>(null);
   const [carregando, setCarregando] = useState(true);
   const [erro, setErro] = useState('');
@@ -47,12 +50,14 @@ export function AnalisePage() {
       buscarVendasPorProduto(),
       buscarVendasPorCategoria(),
       buscarVendasPorCidade(),
+      buscarVendasPorEstado(),
       buscarRelatorioGerencial(),
     ])
-      .then(([produtos, categorias, enderecos, rel]) => {
+      .then(([produtos, categorias, cidades, estados, rel]) => {
         setPorProduto(produtos);
         setPorCategoria(categorias);
-        setPorEndereco(enderecos);
+        setPorCidade(cidades);
+        setPorEstado(estados);
         setRelatorio(rel);
       })
       .catch(() => setErro('Erro ao carregar dados de análise.'))
@@ -189,15 +194,15 @@ export function AnalisePage() {
         </div>
 
         <div className="rounded-xl border border-amber-200 bg-white p-4 shadow-sm">
-          <h3 className="mb-1 font-semibold text-amber-900">Faturamento por endereço</h3>
-          <p className="mb-4 text-xs text-stone-400">Receita agrupada por endereço do cliente</p>
+          <h3 className="mb-1 font-semibold text-amber-900">Faturamento por cidade</h3>
+          <p className="mb-4 text-xs text-stone-400">Receita agrupada pela cidade do cliente</p>
           {porCidade.length === 0 ? (
-            <p className="text-stone-400">Sem dados ou clientes sem endereço cadastrado.</p>
+            <p className="text-stone-400">Sem dados ou clientes sem cidade cadastrada.</p>
           ) : (
             <ResponsiveContainer width="100%" height={300}>
               <BarChart data={porCidade}>
                 <CartesianGrid strokeDasharray="3 3" />
-                <XAxis dataKey="endereco" tick={{ fontSize: 11 }} />
+                <XAxis dataKey="cidade" tick={{ fontSize: 11 }} />
                 <YAxis />
                 <Tooltip
                   formatter={(v, name) =>
@@ -208,6 +213,31 @@ export function AnalisePage() {
                 />
                 <Bar dataKey="faturamento" fill="#d97706" radius={[4, 4, 0, 0]} name="faturamento" />
                 <Bar dataKey="totalVendas" fill="#92400e" radius={[4, 4, 0, 0]} name="totalVendas" />
+              </BarChart>
+            </ResponsiveContainer>
+          )}
+        </div>
+
+        <div className="rounded-xl border border-amber-200 bg-white p-4 shadow-sm">
+          <h3 className="mb-1 font-semibold text-amber-900">Faturamento por estado</h3>
+          <p className="mb-4 text-xs text-stone-400">Receita agrupada pelo estado do cliente</p>
+          {porEstado.length === 0 ? (
+            <p className="text-stone-400">Sem dados ou clientes sem estado cadastrado.</p>
+          ) : (
+            <ResponsiveContainer width="100%" height={300}>
+              <BarChart data={porEstado}>
+                <CartesianGrid strokeDasharray="3 3" />
+                <XAxis dataKey="estado" tick={{ fontSize: 11 }} />
+                <YAxis />
+                <Tooltip
+                  formatter={(v, name) =>
+                    name === 'faturamento'
+                      ? [formatarMoeda(Number(v ?? 0)), 'Faturamento']
+                      : [`${Number(v ?? 0)}`, 'Vendas']
+                  }
+                />
+                <Bar dataKey="faturamento" fill="#b45309" radius={[4, 4, 0, 0]} name="faturamento" />
+                <Bar dataKey="totalVendas" fill="#78350f" radius={[4, 4, 0, 0]} name="totalVendas" />
               </BarChart>
             </ResponsiveContainer>
           )}

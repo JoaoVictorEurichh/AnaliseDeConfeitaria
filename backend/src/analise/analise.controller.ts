@@ -20,6 +20,11 @@ export class AnaliseController {
     return this.analiseService.getVendasPorCidade();
   }
 
+  @Get('vendas-por-estado')
+  getVendasPorEstado() {
+    return this.analiseService.getVendasPorEstado();
+  }
+
   @Get('relatorio-gerencial')
   getRelatorioGerencial() {
     return this.analiseService.getRelatorioGerencial();
