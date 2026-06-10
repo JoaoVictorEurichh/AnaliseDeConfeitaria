@@ -252,6 +252,7 @@ export function VendasPage() {
           <tr>
             <th className="p-2 text-left">ID</th>
             <th className="p-2 text-left">Cliente</th>
+            <th className="p-2 text-left">Funcionário</th>
             <th className="p-2 text-left">Data</th>
             <th className="p-2 text-left">Total</th>
           </tr>
@@ -261,6 +262,7 @@ export function VendasPage() {
             <tr key={venda.id} className="border-t">
               <td className="p-2">{venda.id}</td>
               <td className="p-2">{venda.cliente.nome}</td>
+              <td className="p-2">{venda.funcionario.nome}</td>
               <td className="p-2">
                 {new Date(venda.dataVenda).toLocaleDateString('pt-BR')}
               </td>

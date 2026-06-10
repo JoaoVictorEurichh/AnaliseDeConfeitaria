@@ -9,6 +9,11 @@ export interface Venda {
       nome: string;
       email: string;
     };
+    funcionario: {
+      id: number;
+      nome: string;
+      cargo: string | null;
+    };
     itens: {
       id: number;
       quantidade: number;

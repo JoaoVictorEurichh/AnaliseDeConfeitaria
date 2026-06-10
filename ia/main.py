@@ -1,5 +1,5 @@
 import os
-from datetime import datetime
+from datetime import datetime, timezone
 from urllib.parse import urlparse, unquote
 
 import numpy as np
@@ -66,7 +66,7 @@ def buscar_dados_clientes():
 
 
 def construir_features(linhas):
-    hoje = datetime.now()
+    hoje = datetime.now(timezone.utc).replace(tzinfo=None)
     registros = []
 
     for linha in linhas:
@@ -77,7 +77,7 @@ def construir_features(linhas):
         ) if data_cadastro else 1
 
         dias_ultima_compra = (
-            (hoje - ultima_compra.replace(tzinfo=None)).days
+            max((hoje - ultima_compra.replace(tzinfo=None)).days, 0)
             if ultima_compra
             else 9999
         )
